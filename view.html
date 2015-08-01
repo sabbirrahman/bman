@@ -1,0 +1,44 @@
+<div id="row" class="row">
+	<section class="columns two dragableItem" data-up="up" data-parentid="{{parentEl.parentId}}"
+			 ng-class="{circle : (config.shape == 'circle')}" ng-show="parentEl">
+		<div class="bookmark" ng-class="{rectangle 		  : (config.shape == 'rectangle'),
+		     							 roundedRectangle : (config.shape == 'roundedRectangle'),
+		                				 circle           : (config.shape == 'circle'),
+		                			     oval             : (config.shape == 'oval')}"
+		                	  style="background: rgba(255, 255, 255, 0.0)">
+			<a ng-href="{{'#/folder/' + parentEl.parentId}}">
+				<img id="{{parentEl.id}}"
+					 ng-src="img/up.png"
+					 alt="{{parentEl.name}}"
+					 crossOrigin="anonymous">
+				<span class="name">Up</span>
+			</a>
+		</div>
+	</section>
+
+	<section class="columns two dragableItem repeat-animation" ng-class="{circle : (config.shape == 'circle')}"
+			 draggable="true"
+			 ng-repeat="bookmark in bookmarks | filter:search"
+			 data-id="{{$index}}"
+			 title="{{bookmark.name}}"
+			 ng-show="bookmark.parentId == parentId || search.name">
+		<div class="bookmark"
+		     ng-class="{rectangle 		 : (config.shape == 'rectangle'),
+		     			roundedRectangle : (config.shape == 'roundedRectangle'),
+		                circle           : (config.shape == 'circle'),
+		                oval             : (config.shape == 'oval')}"
+		     style="background: {{colorMaker(bookmark.rgb, bookmark.a)}}">
+			<a class="link" ng-href="{{bookmark.link}}" data-id="{{$index}}">
+				<img id="{{bookmark.id}}"
+					 ng-src="{{bookmark.img}}"
+					 alt="{{bookmark.name}}"
+					 crossOrigin="anonymous">
+				<span class="name" ng-show="bookmark.name">{{bookmark.name | limitTo:15}}</span>
+			</a>
+			<div class="bmoptions" ng-controller="Buttons" ng-show="config.editMode">
+				<i class="ed fa fa-pencil-square-o" ng-click="gotoEditMenu($index)" title="Edit"  ></i>
+				<i class="ed fa fa-times" 			ng-click="delete($index)"       title="Delete"></i>
+			</div>
+		</div>
+	</section>
+</div>

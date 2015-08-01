@@ -1,0 +1,43 @@
+<div class="formcontainer">
+	<form class="form">
+		<div class="errorBox" ng-show="errMsg">{{errMsg}}</div>
+		<label>Export</label>
+		<i class="fa fa-download" ng-click="export()"></i>
+		
+		<label>Import</label>
+		<div class="import">
+			<input type="file" ng-model="backup" ng-file-select="import()">
+			<i ng-click="importFromChrome()">From Chrome</i>
+		</div>
+		
+		<label>Wallpaper</label>
+		<input type="file" ng-model="wallpaper" ng-file-select="changeWallpaper()">
+		<div class="pattern">
+			<img src="img/xiawhraw1.png" ng-click="setPatterAsWallpaper(1)">
+			<img src="img/xiawhraw2.png" ng-click="setPatterAsWallpaper(2)">
+			<img src="img/xiawhraw3.png" ng-click="setPatterAsWallpaper(3)">
+			<img src="img/xiawhraw4.png" ng-click="setPatterAsWallpaper(4)">
+		</div>
+		<select class="wType" ng-model="config.wallpaper.type" ng-change="setWallpaperType()">
+			<option value="no-repeat; background-size: 100% 100%">Stretch</option>
+			<option value="repeat">Tiled</option>
+		</select>
+		<label>Sort by</label>
+		<select ng-model="config.orderBy" ng-change="setOrderBy()">
+			<option value="name">Name</option>
+			<option value="link">Link</option>
+			<option value="type">Folder First</option>
+			<option value="date">Newest First</option>
+			<option value="lastVisited">Last Visited First</option>
+			<option value="custom">Custom</option>
+		</select>
+		<label>Shape</label>
+		<div class="shape">
+			<div><div class=" " ng-click="changeShape('rectangle')"        title="Rectangle">        </div></div>
+			<div><div class="r" ng-click="changeShape('roundedRectangle')" title="Rounded Rectangle"></div></div>
+			<div><div class="o" ng-click="changeShape('oval')" 		   	   title="Oval">			 </div></div>
+			<div><div class="c" ng-click="changeShape('circle')" 		   title="Circle">			 </div></div>
+		</div>
+		<div class="button" ng-click="restoreDefaults()">Restore Defaults</div>
+	</form>
+</div>

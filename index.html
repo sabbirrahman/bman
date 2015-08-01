@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7"> 	<![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8">			<![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9"> 				<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="" ng-app="B-Man">
+<!--<![endif]-->
+
+<head>
+	<title>B-Man</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/FontAwesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/animate.css">
+	<link rel="stylesheet" href="css/animations.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!--[if lt IE 9]>
+	<script src="scripts/library/html5shiv.js"></script>
+	<![endif]-->
+</head>
+
+<body ng-controller="Bookmarks" style="background: {{'url(' + config.wallpaper.link + ') ' + config.wallpaper.type}}">
+	
+	<nav class="row">
+		<div class="columns six">
+			<div class="logo">
+				<a href="/index.html#/folder">B-Man</a>
+			</div>
+		</div>
+		<div class="columns six">
+			<div class="menu">
+				<div class="searchbox" title="Search">
+					<form>
+						<input type="search" ng-model="search.name">
+						<i class="fa fa-search"></i>
+					</form>
+				</div>
+				<div class="buttons" ng-controller="Buttons">
+					<i ng-click="gotoAddPage()" class="fa fa-plus-square-o" title="Add Bookmark"></i>
+					<i ng-class="{activated: config.editMode}" ng-click="toggleEditMode()" class="fa fa-pencil-square-o" title="{{(config.editMode)?'Deactivate':'Activate'}} Edit Mode"></i>
+					<i ng-click="gotoSettings()" class="fa fa-cog" title="Settings"></i>
+				</div>
+			</div>
+		</div>
+	</nav>
+	
+	<main>
+		<div class="view" ng-controller="Buttons" ng-click="gotoHome($event)" ng-view></div>
+	</main>
+
+	<img id="{{config.wallpaper.name+'.jpg'}}" src="" hidden>
+	
+	<script src="js/library/angular.min.js"></script>
+	<script src="js/library/angular-route.min.js"></script>
+	<script src="js/library/angular-animate.min.js"></script>
+	<script src="js/library/angular-file-upload.min.js"></script>
+	<script src="js/library/color-thief.min.js"></script>
+	<script src="js/library/FileSaver.js"></script>
+	<script src="js/library/jszip.min.js"></script>
+	<script src="js/ColorService.js"></script>
+	<script src="js/FileService.js"></script>
+	<script src="js/main.js"></script>
+</body>
+
+</html>

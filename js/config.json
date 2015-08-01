@@ -1,0 +1,10 @@
+{
+	"wallpaper" : {
+		"name" : "xiawhraw",
+	    "link" : "img/xiawhraw.jpg",
+	    "type" : "repeat"
+	},
+    "editMode" : false,
+    "orderBy"  : "custom",
+    "shape"    : "rectangle"
+}

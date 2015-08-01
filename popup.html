@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<!--[if lt IE 7]> <html class="lt-ie9 lt-ie8 lt-ie7"> 	<![endif]-->
+<!--[if IE 7]>    <html class="lt-ie9 lt-ie8">			<![endif]-->
+<!--[if IE 8]>    <html class="lt-ie9"> 				<![endif]-->
+<!--[if gt IE 8]><!-->
+<html class="" ng-app="B-Man" style="min-height:90%">
+<!--<![endif]-->
+
+<head>
+	<title>B-Man</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/FontAwesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="css/styles.css">
+	<!--[if lt IE 9]>
+	<script src="scripts/html5shiv.js"></script>
+	<![endif]-->
+</head>
+<body ng-controller="Bookmarks">
+
+	<div class="formcontainer" ng-controller="Add">
+		<form name="form" class="form" ng-controller="Form" ng-submit="add(true)">
+			<div class="errorBox" ng-show="errMsg">{{errMsg}}</div>
+			<input type="text" ng-model="bookmark.name" placeholder="{{createFolder?'Folder':'Bookmark'}} Name">
+			
+			<input type="link" placeholder="Link" ng-model="bookmark.link" ng-hide="createFolder" ng-blur="fixLink()" required>
+
+			<label>Add To Folder</label>
+			<select ng-model="bookmark.parentId">
+				<option value="">Root</option>
+				<option value="{{folder.id}}" ng-repeat="folder in folders">{{folder.name}}</option>
+			</select>
+			
+			<input type="submit" ng-disabled="!form.$valid" ng-class="{disabled: !form.$valid}" class="button" value="Add">
+		</form>
+	</div>
+
+
+    <script src="js/library/angular.min.js"></script>
+	<script src="js/library/angular-route.min.js"></script>
+	<script src="js/library/angular-file-upload.min.js"></script>
+	<script src="js/library/color-thief.min.js"></script>
+	<script src="js/library/FileSaver.js"></script>
+	<script src="js/library/jszip.min.js"></script>
+	<script src="js/ColorService.js"></script>
+	<script src="js/FileService.js"></script>
+	<script src="js/main.js"></script>
+
+</body>
+</html>
