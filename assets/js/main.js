@@ -12,10 +12,10 @@ angular
     .config(function($routeProvider, $compileProvider){
         // Routes:
         $routeProvider
-            .when("/folder/:folderId?", { templateUrl: "view.html"      , controller: "MainView"  } )
-            .when("/add",               { templateUrl: "add.html"       , controller: "Add"       } )
-            .when("/edit/:index",       { templateUrl: "edit.html"      , controller: "Edit"      } )
-            .when("/settings",          { templateUrl: "settings.html"  , controller: "Settings"  } );
+            .when("/folder/:folderId?", { templateUrl: "templates/view.html"      , controller: "MainView"  } )
+            .when("/add",               { templateUrl: "templates/add.html"       , controller: "Add"       } )
+            .when("/edit/:index",       { templateUrl: "templates/edit.html"      , controller: "Edit"      } )
+            .when("/settings",          { templateUrl: "templates/settings.html"  , controller: "Settings"  } );
         // For Allowing Images & Links in Chrome Apps
         $compileProvider
             .imgSrcSanitizationWhitelist(/^\s*(https?|ftp|file|chrome-extension|filesystem:chrome-extension|):|data:image\//)
@@ -31,21 +31,21 @@ angular
 
         // Fetching Configurations:
         if(localStorage.config == undefined){
-            $http.get("/js/config.json").success(function(data, status, headers, config){
+            $http.get("./assets/js/config.json").success(function(data, status, headers, config){
                     $scope.config = data;
                     localStorage.config = angular.toJson(data);
             })
         } else { $scope.config = angular.fromJson(localStorage.config); }
-        
+
         // Fetching Bookmarks:
         if(localStorage.bookmarks == undefined){
-        	$http.get("/js/bookmarks.json").success(function(data, status, headers, config){
+        	$http.get("./assets/js/bookmarks.json").success(function(data, status, headers, config){
 					$scope.bookmarks = data;
             		localStorage.bookmarks = angular.toJson(data);
 			})
         } else { $scope.bookmarks = angular.fromJson(localStorage.bookmarks); }
-                    console.log($scope.bookmarks[0].date);
-        
+                    // console.log($scope.bookmarks[0].date);
+
         // Creating Image Folder:
         if(localStorage.imgFolder == undefined){
         	File.createFolder("img");
@@ -202,8 +202,8 @@ angular
 
         // For Popup
         function onPageDetailsReceived(pageDetails)  {
-            $scope.bookmark.name = pageDetails.title; 
-            $scope.bookmark.link = pageDetails.url; 
+            $scope.bookmark.name = pageDetails.title;
+            $scope.bookmark.link = pageDetails.url;
         }
 
         window.addEventListener('load', function(evt) {
@@ -427,7 +427,7 @@ angular
             localStorage.config = angular.toJson($scope.config);
         }
     })
-    
+
 
     // Buttons Controller:
     .controller("Buttons", function($scope, $location, File){

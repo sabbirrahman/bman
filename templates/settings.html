@@ -3,20 +3,20 @@
 		<div class="errorBox" ng-show="errMsg">{{errMsg}}</div>
 		<label>Export</label>
 		<i class="fa fa-download" ng-click="export()"></i>
-		
+
 		<label>Import</label>
 		<div class="import">
 			<input type="file" ng-model="backup" ng-file-select="import()">
 			<i ng-click="importFromChrome()">From Chrome</i>
 		</div>
-		
+
 		<label>Wallpaper</label>
 		<input type="file" ng-model="wallpaper" ng-file-select="changeWallpaper()">
 		<div class="pattern">
-			<img src="img/xiawhraw1.png" ng-click="setPatterAsWallpaper(1)">
-			<img src="img/xiawhraw2.png" ng-click="setPatterAsWallpaper(2)">
-			<img src="img/xiawhraw3.png" ng-click="setPatterAsWallpaper(3)">
-			<img src="img/xiawhraw4.png" ng-click="setPatterAsWallpaper(4)">
+			<img src="./assets/img/xiawhraw1.png" ng-click="setPatterAsWallpaper(1)">
+			<img src="./assets/img/xiawhraw2.png" ng-click="setPatterAsWallpaper(2)">
+			<img src="./assets/img/xiawhraw3.png" ng-click="setPatterAsWallpaper(3)">
+			<img src="./assets/img/xiawhraw4.png" ng-click="setPatterAsWallpaper(4)">
 		</div>
 		<select class="wType" ng-model="config.wallpaper.type" ng-change="setWallpaperType()">
 			<option value="no-repeat; background-size: 100% 100%">Stretch</option>
