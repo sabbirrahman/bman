@@ -6,7 +6,7 @@
     "start": "npm start"
   },
   "dependencies": {
-    "angular": "1.3.13",
+    "angular": "1.5.8",
     "angular-animate": "1.3.13",
     "angular-route": "1.3.13",
     "filesaver.js-npm": "1.0.1",
