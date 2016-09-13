@@ -12,7 +12,7 @@
     "filesaver.js-npm": "1.0.1",
     "font-awesome": "^4.6.3",
     "jszip": "^2.6.0",
-    "ng-file-upload": "^2.2.2"
+    "ng-file-upload": "^12.2.9"
   },
   "devDependencies": {},
   "repository": {
