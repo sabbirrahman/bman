@@ -1,0 +1,52 @@
+<div id="row" class="row">
+	<section class="columns two dragableItem" *ngIf="parentEl"
+    data-up="up" [attr.data-parentid]="parentEl.parentId"
+    [ngClass]="{ circle : (config.shape == 'circle') }">
+
+    <div class="bookmark" [ngClass]="shapeClass"
+				 style="background: rgba(255, 255, 255, 0.0)">
+
+      <a [routerLink]="['/folder', parentEl.parentId]">
+				<img [attr.id]="parentEl.id" [attr.alt]="parentEl.name"
+					  src="./assets/img/up.png" crossOrigin="anonymous">
+				<span class="name">Up</span>
+			</a>
+
+		</div>
+	</section>
+
+	<section class="columns two dragableItem repeat-animation"
+    *ngFor="let bookmark of bookmarkService.list let i=index"
+    [class.circle]="config.shape === 'circle'" draggable="true"
+    [title]="bookmark.name" [attr.data-id]="i"
+		(dragstart)="handleDragStart(dragItem)"
+		(dragover)="handleDragOver($event, dragItem)"
+		(drop)="handleDrop(dragItem)"
+		#dragItem
+   >
+   <!--  | filter:search -->
+   <div *ngIf="bookmark.parentId == folderId">
+   <!--  || search.name -->
+		<div class="bookmark" [ngClass]="shapeClass"
+		     [style.background]="bookmark.rgb | color:bookmark.a">
+
+			<a class="link" [href]="bookmark.link" (click)="gotoLink(i)">
+				<img [attr.id]="bookmark.id" [attr.alt]="bookmark.name"
+					   [src]="bookmark.img | bypass" crossOrigin="anonymous">
+				<span class="name" *ngIf="bookmark.name">
+          {{bookmark.name | slice:0:15}}
+        </span>
+			</a>
+
+			<div class="bmoptions" *ngIf="config.editMode">
+				<a [routerLink]="['/edit', i]">
+					<i class="ed fa fa-pencil-square-o" title="Edit"></i>
+				</a>
+				<a (click)="bookmarkService.delete(i)">
+					<i class="ed fa fa-times" title="Delete"></i>
+				</a>
+			</div>
+		</div>
+    </div>
+	</section>
+</div>

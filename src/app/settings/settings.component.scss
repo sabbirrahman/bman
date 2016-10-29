@@ -1,0 +1,50 @@
+@import "../../assets/css/global";
+.import{
+  width: 100%;
+  input[type=file]::-webkit-file-upload-button {
+    width: 145px;
+  }
+  input[type=file], i {
+    width: 50%;
+    float: left;
+    font-size: 14px;
+    font-style: normal;
+  }
+}
+
+.pattern {
+  margin: -5px auto 0 auto;
+  img {
+    display: inline-block;
+    height: 72.5px;
+    width: 72.5px;
+    margin-right: -3px;
+    &:hover {
+        cursor: pointer;
+    }
+  }
+}
+
+.wType { margin-top: -10px; }
+
+.shape {
+  justify-content: space-between;
+  align-content: center;
+  margin: 5px 0px;
+  display: flex;
+  >div {
+    background: $blue;
+    height: 35px;
+    width: 70px;
+    div {
+      background: $transparent_black;
+      margin: 5px auto;
+      height: 25px;
+      width: 50px;
+      &:hover { cursor: pointer; }
+    }
+    .r { border-radius:  5px; }
+    .c { border-radius: 100%; width: 25px; }
+    .o { border-radius: 100%; }
+  }
+}

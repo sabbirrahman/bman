@@ -1,0 +1,35 @@
+.row {
+	max-width: 1366px;
+	width: 100%;
+  	*zoom: 1;
+}
+
+.row:before,
+.row:after {
+  display: table;
+  content: "";
+  line-height: 0;
+  clear: both;
+}
+
+.columns {
+	float: left;
+}
+
+.columns.one 		{	width: 	08.333%		}
+.columns.two 		{	width: 	16.666%		}
+.columns.three 	{	width: 	25.000%		}
+.columns.four 	{	width: 	33.333%		}
+.columns.five 	{	width: 	41.666%		}
+.columns.six 		{	width: 	50.000%		}
+.columns.seven 	{	width: 	58.333%		}
+.columns.eight 	{	width: 	66.666%		}
+.columns.nine 	{	width: 	75.000%		}
+.columns.ten 		{	width: 	83.333%		}
+.columns.eleven {	width: 	91.666%		}
+.columns.twelve {	width: 	100.00%		}
+
+/* Media Queries */
+@media only screen and (max-width:960px){ .columns.two { width: 20.000%; } }
+@media only screen and (max-width:768px){ .columns.two { width: 25.000%; } }
+@media only screen and (max-width:600px){ .columns.two { width: 33.333%; } }

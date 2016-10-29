@@ -1,0 +1,63 @@
+<div class="formcontainer">
+	<form class="form">
+		<div class="errorBox" *ngIf="errMsg">{{errMsg}}</div>
+
+    <label>Export</label>
+		<i class="fa fa-download" (click)="export()"></i>
+
+		<label>Import</label>
+		<div class="import">
+			<input #backup type="file" (change)="import(backup)">
+			<i (click)="importFromChrome()">From Chrome</i>
+		</div>
+
+		<label>Wallpaper</label>
+		<input #wall type="file" (change)="changeWallpaper(wall)">
+		<div class="pattern">
+			<img src="./assets/img/xiawhraw1.png" (click)="setPatterAsWallpaper(1)">
+			<img src="./assets/img/xiawhraw2.png" (click)="setPatterAsWallpaper(2)">
+			<img src="./assets/img/xiawhraw3.png" (click)="setPatterAsWallpaper(3)">
+			<img src="./assets/img/xiawhraw4.png" (click)="setPatterAsWallpaper(4)">
+		</div>
+    <select #wallType class="wType" (input)="setWallpaperType(wallType.value)">
+			<option value="stretch">Stretch</option>
+			<option value="tiled">Tiled</option>
+		</select>
+
+    <label>Sort by</label>
+		<select #orderBy (input)="setOrderBy(orderBy.value)">
+			<option value="name">Name</option>
+			<option value="link">Link</option>
+			<option value="type">Folder First</option>
+			<option value="date">Newest First</option>
+			<option value="lastVisited">Last Visited First</option>
+			<option value="custom">Custom</option>
+		</select>
+
+    <label>Shape</label>
+		<div class="shape">
+			<div>
+				<div class=" " title="Rectangle"
+					(click)="changeShape('rectangle')"
+				></div>
+			</div>
+			<div>
+				<div class="r" title="Rounded Rectangle"
+					(click)="changeShape('roundedRectangle')"
+				></div>
+			</div>
+			<div>
+				<div class="o" title="Oval"
+					(click)="changeShape('oval')"
+				></div>
+			</div>
+			<div>
+				<div class="c" title="Circle"
+					(click)="changeShape('circle')"
+				></div>
+			</div>
+		</div>
+
+    <div class="button" (click)="restoreDefaults()">Restore Defaults</div>
+	</form>
+</div>

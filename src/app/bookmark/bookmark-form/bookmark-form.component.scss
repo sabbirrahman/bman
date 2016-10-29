@@ -1,0 +1,20 @@
+.preview {
+  -webkit-transition: all 0.2s ease-in-out;
+          transition: all 0.2s ease-in-out;
+}
+.img {
+  height: 110px;
+  width: 100px;
+  padding: 5px;
+  margin: 0 auto;
+  &:hover { cursor: crosshair; }
+}
+.colorWheelCont {
+  width: 190px;
+  padding: 5px;
+  margin: 0px auto;
+  &:hover { cursor: crosshair; }
+}
+.cFL {
+  margin-bottom: 10px;
+}

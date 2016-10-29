@@ -1,0 +1,106 @@
+@import "../../../assets/css/global";
+.bookmark {
+  -webkit-transition: all 0.1s ease-in;
+          transition: all 0.1s ease-in;
+  -webkit-animation-duration: .5s;
+          animation-duration: .5s;
+  -webkit-animation-name: zoomIn;
+          animation-name: zoomIn;
+  @include boxShadow();
+  @include whiteTx();
+	position: relative;
+	display: block;
+	margin: 5px;
+ 	a {
+ 		display: block;
+ 		padding: 10px;
+ 		width: 100%;
+ 	}
+  img {
+    display: block;
+  	margin: 0 auto;
+  	height: 100px;
+  	width: 100px;
+  }
+	.name {
+    @include blackBg(0.75);
+    @include whiteTx();
+		position: absolute;
+		font-size: 10px;
+		display: none;
+		padding: 4px;
+		bottom: 5px;
+		left: 5px;
+	}
+	&:hover { box-shadow: 0px 0px 0px 1px $white; }
+	&:hover .bmoptions { display: flex; }
+  &:hover .name { display: block; }
+}
+
+.bmoptions {
+  justify-content: flex-start;
+  @include blackBg(0.75);
+  align-items: center;
+  position: absolute;
+  text-align: center;
+  display: none;
+  width: 50px;
+  right: 0px;
+  top: 0px;
+  a {
+    display: block;
+    padding: 0px;
+    width: auto;
+    i {
+      -webkit-transition: all 0.3s ease-in;
+      transition: all 0.3s ease-in;
+      line-height: 25px;
+      font-size: 16px;
+      height: 25px;
+      width: 25px;
+      &:hover {
+        color: $link_hover;
+        cursor: pointer;
+      }
+    }
+  }
+}
+
+// Shapes
+.rectangle {}
+.roundedRectangle {
+	border-radius: 5px;
+}
+.oval {
+	border-radius: 100%;
+	overflow: hidden;
+	.bmoptions {
+    right: calc(50% - 25px);
+		top: 5px;
+	}
+	&:hover .name { display: none; }
+
+}
+.columns.two.circle {
+	width: 120px;
+	margin: 5px 15px;
+	.circle {
+		border-radius: 100%;
+		width: 120px;
+		margin: 5px auto;
+		img { border-radius: 100%; }
+	}
+}
+// .view.folderview {
+// 	.bookmark;
+// }
+
+@media only screen and (max-width:480px){
+	.bookmark img { height: 75px; width: 75px; }
+	.columns.two.circle { width: 95px; .circle { width: 95px; } }
+}
+@media only screen and (max-width:360px){
+	.bookmark img { height: 50px; width: 50px; }
+	.bookmark { &:hover .name { display: none; } }
+	.columns.two.circle { width: 70px; .circle { width: 70px; } }
+}

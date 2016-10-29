@@ -1,0 +1,76 @@
+@import './global';
+// Form Styles
+.formcontainer {
+	border: 1px solid rgba(255, 255, 255, .1);
+	background: $transparent_black;
+	box-shadow: $shadow;
+	margin: 5px auto;
+	color: $white;
+	padding: 5px;
+	width: 320px;
+}
+.form {
+	margin: 0px auto;
+	width: 300px;
+	padding: 5px;
+	i {
+		@include button();
+		text-align: center;
+		line-height: 35px;
+		font-size: 20px;
+	}
+	i,
+	label,
+	select,
+	option,
+	input[type=submit],
+	input[type=text],
+	input[type=link],
+	input[type=range],
+	input[type=file]::-webkit-file-upload-button {
+		padding-left: 10px;
+		margin: 5px auto;
+		font-size: 16px;
+		color: $black;
+		border: none;
+		height: 35px;
+		width: 290px;
+	}
+	input[type=file] { font-size: 0px; }
+	input[type=submit] { padding-left: 0; color: $white; }
+	input[type=file]::-webkit-file-upload-button {
+		@include button();
+	}
+	input[type=range] {
+		height: 15px;
+	}
+	input[type=checkbox] {
+		margin: 7.5px 5px;
+		font-size: 16px;
+		height: 20px;
+		width: 20px;
+		position: absolute;
+	}
+	label {
+		clear:both;
+		background: darken($blue, 15%);
+		margin-bottom: -5px;
+		text-align: center;
+		padding-left: 0px;
+		line-height: 25px;
+		font-weight: bold;
+		font-size: 14px;
+		display: block;
+		color: $white;
+		height: 25px;
+		width: 100%;
+	}
+}
+.errorBox {
+	text-align: center;
+	line-height: 25px;
+	background: Red;
+	margin: 0 auto;
+	height: 25px;
+	width: 290px;
+}

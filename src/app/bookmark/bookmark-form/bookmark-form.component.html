@@ -1,0 +1,64 @@
+<div class="formcontainer">
+	<form class="form" (ngSubmit)="submit()">
+
+		<div class="errorBox" *ngIf="errMsg">{{errMsg}}</div>
+
+    <input type="text" [(ngModel)]="bookmark.name" name="name" [placeholder]="
+			(bookmark.type === 'folder' ? 'Folder' : 'Bookmark') + ' Name'">
+
+    <div *ngIf="!editMode">
+      <input #inpCB id="createFolder" type="checkbox"
+				[(ngModel)]="createFolder" (change)="changeEntryType(inpCB.checked)"
+				 name="createFolder"
+			>
+      <label class="cFL" for="createFolder">Create Folder?</label>
+    </div>
+
+		<input type="link" placeholder="Link" *ngIf="bookmark.type !== 'folder'"
+			[(ngModel)]="bookmark.link" name="link" (blur)="fixLink()" required
+		>
+
+		<label>{{!editMode ? 'Add':'Move'}} To Folder</label>
+		<select [(ngModel)]="bookmark.parentId" name="parentId">
+			<option value="">Root</option>
+			<option [value]="folder.id"
+				*ngFor="let folder of folders"
+			>{{folder.name}}</option>
+		</select>
+
+		<!-- accept="image/*" -->
+		<input #fileInp type="file" (change)="draw(fileInp)">
+
+		<select #colorOpt (input)="changeColorOption(colorOpt.value)">
+			<option>Select Color Option</option>
+			<option value="A">Auto Detect Color</option>
+			<option value="B">Pick Color from Photo</option>
+			<option value="C">Pick Color from Color Wheel</option>
+		</select>
+
+		<div class="preview" [style.background]="bookmark.rgb | color:bookmark.a">
+			<div class="img">
+				<img [attr.id]="bookmark.id + bookmark.ext" [src]="bookmark.img | bypass">
+				<canvas id="canvas1" height="100px" width="100px"
+				 (click)="pickColor($event, 'canvas1')"
+			 	></canvas>
+			</div>
+		</div>
+
+		<input #inpRange type="range" min='0' max='100'
+			(input)="this.bookmark.a = inpRange.value / 100"
+			[title]="'Opacity: ' + opacity"
+		>
+
+		<div class="colorWheelCont"
+			[style.display]="colorOption === 'C' ? 'block' : 'none'">
+			<canvas id="canvas2" height="200px" width="200px"
+				(click)="pickColor($event, 'canvas2')"
+			></canvas>
+			<img id="colorWheel" src="assets/img/Color_Wheel.png">
+		</div>
+		<!-- ng-disabled="!form.$valid" -->
+		<!-- [ngClass]="{disabled: !form.$valid}" -->
+		<input type="submit" class="button" [value]="!editMode ? 'Add' : 'Save'">
+	</form>
+</div>

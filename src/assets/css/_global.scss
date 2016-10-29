@@ -1,0 +1,32 @@
+// Variables
+$black: #222222;
+$white: #F3F3F3;
+$blue : rgb(35, 134, 200);
+$link_color: $white;
+$link_hover: #FEA901;
+$transparent_black:  rgba(34, 34, 34, 0.75);
+$shadow: 0px 2px 2px rgba(00, 00, 00, 0.75);
+// Mixins
+@mixin whiteBg($a: 1) { background: rgba(243, 243, 243, $a) }
+@mixin blackBg($a: 1) { background: rgba(034, 034, 034, $a) }
+
+@mixin whiteTx($a: 1) { color: rgba(243, 243, 243, $a) }
+@mixin blackTx($a: 1) { color: rgba(034, 034, 034, $a) }
+
+@mixin  boxShadow($a: 0.75) {  box-shadow: 0px 2px 2px rgba(0, 0, 0, $a) }
+@mixin textShadow($a: 0.75) { text-shadow: 0px 2px 2px rgba(0, 0, 0, $a) }
+
+@mixin button {
+	text-align: center;
+	background: $blue;
+	padding-left: 0px;
+	line-height: 35px;
+	font-size: 14px;
+	color: $white;
+	height: 35px;
+	&:hover {
+		background: $link_hover;
+		color: $black;
+		cursor: pointer;
+	}
+}

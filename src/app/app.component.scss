@@ -1,0 +1,106 @@
+@import "../assets/css/global";
+.bg {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  z-index: -1;
+  left: 0;
+  top: 0;
+	&.tiled {
+		background-size: auto auto;
+		background-repeat: repeat;
+	}
+	&.stretch {
+		background-size: 100% 100%;
+		background-repeat: repeat;
+	}
+}
+
+// Navigation Style
+nav {
+	background: $transparent_black;
+  justify-content: space-between;
+  align-items: center;
+  display: flex;
+	box-shadow: $shadow;
+	padding: 0px 20px;
+	position: fixed;
+	height: 50px;
+  width: 100vw;
+	z-index: 1;
+	top: 0px;
+	.logo {
+		line-height: 50px;
+		color: $white;
+		height: 50px;
+	}
+	.menu {
+    justify-content: space-between;
+    align-items: center;
+    display: flex;
+		height: 50px;
+		width: 321px;
+		.searchbox {
+			form {
+				position: relative;
+				margin-left: 10px;
+				width: 200px;
+				input[type=search] {
+					border: 1px solid $white;
+					background: $transparent_black;
+          color: white;
+					padding-left: 10px;
+					line-height: 30px;
+					font-size: 16px;
+					width: 180px;
+				}
+				.fa-search {
+					background: lighten($blue, 15%);
+					padding: 3px 5px 3px 5px;
+					position: absolute;
+					font-size: 22px;
+          color: white;
+					right: 22px;
+					top: 2px;
+					&:hover { cursor: pointer; }
+				}
+			}
+		}
+		.buttons {
+			margin-right: 10px;
+			i {
+        vertical-align: middle;
+				font-size: 26px;
+        color: white;
+				margin: 0px 4px;
+				&:hover {
+					color: $link_hover;
+					cursor: pointer;
+				}
+        &.activated { color: $link_hover; }
+			}
+		}
+	}
+}
+// End of Navigation Style
+
+// Main Section Style
+main { margin-top: 50px; }
+
+@media only screen and (max-width:480px){
+	nav {
+		height: 100px;
+		padding: 0;
+		.columns.six {
+			width: 100.00%;
+			.logo {
+				text-align: center;
+			}
+			.menu {
+				float: none;
+				margin: 0px auto;
+			}
+		}
+	}
+	main { margin-top: 100px; }
+}

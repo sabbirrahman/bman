@@ -1,0 +1,38 @@
+@-ms-viewport { width: device-width; }
+
+* {
+	-webkit-box-sizing: border-box;
+	   -moz-box-sizing: border-box;
+	        box-sizing: border-box;
+	-webkit-font-smoothing: antialiased;
+	        font-smoothing: antialiased;
+	padding: 0px;
+  margin: 0px;
+}
+
+html, body{
+  background-color: transparent;
+  position: relative;
+}
+
+html {
+	position: relative;
+  min-height: 100%;
+}
+
+body {
+  position: relative;
+  font-size: 16px;
+}
+
+a { text-decoration: none; }
+a:hover, a:active, a:visited, a:link {
+	text-decoration: none;
+}
+
+ul { list-style: none; }
+
+.disable-hover,
+.disable-hover * {
+  pointer-events: none !important;
+}
