@@ -1,14 +1,14 @@
-import { Bman2Page } from './app.po';
+import { BmanPage } from './app.po';
 
-describe('bman2 App', function() {
-  let page: Bman2Page;
+describe('bman App', () => {
+  let page: BmanPage;
 
   beforeEach(() => {
-    page = new Bman2Page();
+    page = new BmanPage();
   });
 
-  it('should display message saying app works', () => {
+  it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getParagraphText()).toEqual('app works!');
+    expect(page.getParagraphText()).toEqual('Welcome to app!');
   });
 });

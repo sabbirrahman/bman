@@ -1,6 +1,6 @@
-import { browser, element, by } from 'protractor';
+import { browser, by, element } from 'protractor';
 
-export class Bman2Page {
+export class BmanPage {
   navigateTo() {
     return browser.get('/');
   }

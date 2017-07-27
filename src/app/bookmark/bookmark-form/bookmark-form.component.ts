@@ -20,8 +20,9 @@ export class BookmarkFormComponent implements OnInit {
   folders: Array<any> = [];
   errMsg: string = '';
   colorOption: string;
-  bookmark: any;
+  opacity: number;
   offsetTop: any;
+  bookmark: any;
   index: number;
   file: any;
 

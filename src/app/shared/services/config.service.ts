@@ -4,7 +4,7 @@ import 'rxjs/add/operator/map';
 // Services
 import { StorageService } from './storage.service';
 
-interface ConfigInterface {
+export interface ConfigInterface {
 	wallpaper : {
 		name : string;
     link : string;

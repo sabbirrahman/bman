@@ -22,7 +22,7 @@ export class BookmarkListComponent implements OnInit {
   };
 
   constructor(
-    private bookmarkService: BookmarkService,
+    public bookmarkService: BookmarkService,
     private fileService: FileService,
     private router: ActivatedRoute,
     private config: ConfigService
@@ -55,7 +55,7 @@ export class BookmarkListComponent implements OnInit {
     if(desEl.type == 'folder' && this.config.editMode) return;
     this.bookmarkService.list.splice(srcIndex, 1);
     this.bookmarkService.list.splice(desIndex, 0, srcEl);
-    this.bookmarkService.set();
+    this.bookmarkService.set(this.bookmarkService.list);
     return false;
   }
 
@@ -66,14 +66,14 @@ export class BookmarkListComponent implements OnInit {
     var srcIndex = parseInt(this.srcE.dataset.id);
     if(dragItem.dataset.up){
       this.bookmarkService.list[srcIndex].parentId = dragItem.dataset.parentid;
-      this.bookmarkService.set();
+      this.bookmarkService.set(this.bookmarkService.list);
       return;
     }
     var desIndex = parseInt(dragItem.dataset.id);
     var desEl    = this.bookmarkService.list[desIndex];
     if(desEl.type != 'folder') return;
     this.bookmarkService.list[srcIndex].parentId = desEl.id;
-    this.bookmarkService.set();
+    this.bookmarkService.set(this.bookmarkService.list);
     return false;
   }
 
@@ -83,6 +83,6 @@ export class BookmarkListComponent implements OnInit {
     if(data.type === 'folder') return;
     this.bookmarkService.list.splice(index, 1);
     this.bookmarkService.list.splice(0, 0, data);
-    this.bookmarkService.set();
+    this.bookmarkService.set(this.bookmarkService.list);
   }
 }

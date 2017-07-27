@@ -1,4 +1,3 @@
-import { DomSanitizer } from '@angular/platform-browser';
 import { Component } from '@angular/core';
 // Services
 import { BookmarkService } from './bookmark/bookmark.service';
@@ -15,7 +14,6 @@ export class AppComponent {
   constructor(
     private bookmark: BookmarkService,
     private fileService: FileService,
-    private sanitizer: DomSanitizer,
     private storage: StorageService,
     public config: ConfigService
   ) {}
@@ -54,11 +52,6 @@ export class AppComponent {
   //         else return true;
   //     }
   // }
-
-  get background() {
-    let bg = `url(${this.config.wallpaper.link}) ${this.config.wallpaper.type}`;
-    return this.sanitizer.bypassSecurityTrustStyle(bg);
-  }
 
   toggleEditMode(){
       this.config.editMode = !this.config.editMode;
