@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 // Services
 import { BookmarkService } from './bookmark/bookmark.service';
 import { StorageService } from './shared/services/storage.service';
@@ -10,7 +10,7 @@ import { FileService } from './shared/services/file.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   constructor(
     private bookmark: BookmarkService,
     private fileService: FileService,
@@ -23,8 +23,8 @@ export class AppComponent {
     this.bookmark.get();
 
     // Creating Image Folder:
-    if (!this.storage.isSet('imgFolder')){
-      this.fileService.createFolder("img");
+    if (!this.storage.isSet('imgFolder')) {
+      this.fileService.createFolder('img');
       this.storage.set('imgFolder', true);
     }
     // Filter:
@@ -53,8 +53,8 @@ export class AppComponent {
   //     }
   // }
 
-  toggleEditMode(){
-      this.config.editMode = !this.config.editMode;
-      this.config.set();
+  toggleEditMode() {
+    this.config.editMode = !this.config.editMode;
+    this.config.set();
   }
 }

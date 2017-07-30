@@ -35,6 +35,6 @@ export class SharedModule {
         FileService,
         UtilService
       ]
-    }
+    };
   }
 }

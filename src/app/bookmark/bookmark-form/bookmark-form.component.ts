@@ -16,9 +16,9 @@ declare let chrome: any;
   styleUrls: ['./bookmark-form.component.scss']
 })
 export class BookmarkFormComponent implements OnInit {
-  editMode: boolean = false;
+  editMode = false;
   folders: Array<any> = [];
-  errMsg: string = '';
+  errMsg = '';
   colorOption: string;
   opacity: number;
   offsetTop: any;
@@ -39,7 +39,7 @@ export class BookmarkFormComponent implements OnInit {
   ngOnInit() {
     this.route.params.subscribe((params) => {
       this.folders = this.bookmarkService.list.filter((obj) => {
-        return obj.type == 'folder';
+        return obj.type === 'folder';
       });
       if (params['index']) {
         this.editMode = true;
@@ -78,35 +78,35 @@ export class BookmarkFormComponent implements OnInit {
     });
   }
 
-  add(){
-    if(ValidatorService.isLinkExist(this.bookmark.link, this.bookmarkService.list)){
-      this.errMsg = "Link Already Exist";
+  add() {
+    if (ValidatorService.isLinkExist(this.bookmark.link, this.bookmarkService.list)) {
+      this.errMsg = 'Link Already Exist';
       return;
     }
     this.bookmark.date = new Date();
-    if(this.bookmark.img !== "assets/img/asdjklha0.png" &&
-       this.bookmark.img !== "assets/img/alsdhlas0.png") {
-      let fileName = this.bookmark.id + this.bookmark.ext;
+    if (this.bookmark.img !== 'assets/img/asdjklha0.png' &&
+       this.bookmark.img !== 'assets/img/alsdhlas0.png') {
+      const fileName = this.bookmark.id + this.bookmark.ext;
       this.upload(() => {
         this.bookmarkService.add(this.bookmark);
         this.router.navigate(['folder']);
-      })
+      });
     } else {
       this.bookmarkService.add(this.bookmark);
       this.router.navigate(['folder']);
     }
   }
 
-  edit(){
-      if(this.file) {
-        this.upload(() => {
-          this.bookmarkService.save(this.bookmark, this.index);
-          this.router.navigate(['folder']);
-        });
-      } else {
+  edit() {
+    if (this.file) {
+      this.upload(() => {
         this.bookmarkService.save(this.bookmark, this.index);
         this.router.navigate(['folder']);
-      }
+      });
+    } else {
+      this.bookmarkService.save(this.bookmark, this.index);
+      this.router.navigate(['folder']);
+    }
   }
 
   submit() {
@@ -117,11 +117,11 @@ export class BookmarkFormComponent implements OnInit {
     }
   }
 
-  changeEntryType(checked){
-    if (checked){
+  changeEntryType(checked) {
+    if (checked) {
       this.bookmark.type = 'folder';
       this.bookmark.link = '#/folder/' + this.bookmark.id;
-      if (this.bookmark.img === "assets/img/asdjklha0.png"){
+      if (this.bookmark.img === 'assets/img/asdjklha0.png') {
         this.bookmark.img  = 'assets/img/alsdhlas0.png',
         setTimeout(() => {
           this.colorService.showImg(
@@ -133,7 +133,7 @@ export class BookmarkFormComponent implements OnInit {
     } else {
       this.bookmark.type = 'bookmark';
       this.bookmark.link = '';
-      if (this.bookmark.img == "assets/img/alsdhlas0.png"){
+      if (this.bookmark.img === 'assets/img/alsdhlas0.png') {
         this.bookmark.img  = 'assets/img/asdjklha0.png',
         setTimeout(() => {
           this.colorService.showImg(
@@ -145,30 +145,31 @@ export class BookmarkFormComponent implements OnInit {
     }
   }
 
-  fixLink(){
-    if (!this.bookmark.link) return;
-    if (!this.bookmark.link.match(/^http/))
+  fixLink() {
+    if (!this.bookmark.link) { return; }
+    if (!this.bookmark.link.match(/^http/)) {
       this.bookmark.link = 'http://' + this.bookmark.link;
+    }
   }
 
   draw(fileInp) {
-    if (!fileInp.files || !fileInp.files[0] ) return;
+    if (!fileInp.files || !fileInp.files[0] ) { return; }
     this.file = fileInp.files[0];
-    if(!ValidatorService.type(this.file, ['image/png', 'image/jpeg'])){
-      this.errMsg = "Invalid Image Type";
-      setTimeout(() => { this.errMsg = "" }, 2000);
+    if (!ValidatorService.type(this.file, ['image/png', 'image/jpeg'])) {
+      this.errMsg = 'Invalid Image Type';
+      setTimeout(() => { this.errMsg = ''; }, 2000);
       return;
     }
-    if(!ValidatorService.size(this.file, 256)){
-      this.errMsg = "Too Large! Maximum 256 KB.";
-      setTimeout(() => {this.errMsg = "" }, 2000);
+    if (!ValidatorService.size(this.file, 256)) {
+      this.errMsg = 'Too Large! Maximum 256 KB.';
+      setTimeout(() => {this.errMsg = ''; }, 2000);
       return;
     }
-    let canvas: any  = document.getElementById('canvas1');
-    let context = canvas.getContext && canvas.getContext('2d');
-    let fileReader: any = new FileReader();
+    const canvas: any  = document.getElementById('canvas1');
+    const context = canvas.getContext && canvas.getContext('2d');
+    const fileReader: any = new FileReader();
     fileReader.onload = (ev) => {
-      let img: any = new Image();
+      const img: any = new Image();
       img.onload = () => {
         context.clearRect (0, 0, 100, 100);
         context.drawImage(img, 0, 0, 100, 100);
@@ -177,40 +178,40 @@ export class BookmarkFormComponent implements OnInit {
       img.src = ev.target.result;
     };
     fileReader.readAsDataURL(this.file);
-}
+  }
 
   upload(callback?) {
     this.bookmark.id  = this.util.generateRandomString(8);
-    this.bookmark.ext = (this.file.type == 'image/jpeg')? '.jpg' : '.png';
-    let fileName = this.bookmark.id + this.bookmark.ext;
+    this.bookmark.ext = (this.file.type === 'image/jpeg') ? '.jpg' : '.png';
+    const fileName = this.bookmark.id + this.bookmark.ext;
     this.fileService.upload(this.file, fileName, () => {
-      this.fileService.move(fileName, "img/", () => {
-        this.fileService.getUrl("img/", fileName, (url) => {
+      this.fileService.move(fileName, 'img/', () => {
+        this.fileService.getUrl('img/', fileName, (url) => {
           this.bookmark.img = url;
-          if (callback) callback();
+          if (callback) { callback(); }
         });
       });
     });
   }
 
-  pickColor(ev, canvasId){
-    if ((canvasId === 'canvas1' && this.colorOption === 'C') || this.colorOption === 'A') return;
-    let c = this.colorService.pickColorFromImg(ev, canvasId, 0, this.offsetTop);
+  pickColor(ev, canvasId) {
+    if ((canvasId === 'canvas1' && this.colorOption === 'C') || this.colorOption === 'A') { return; }
+    const c = this.colorService.pickColorFromImg(ev, canvasId, 0, this.offsetTop);
     this.bookmark.rgb = c.r + ', ' + c.g + ', ' + c.b;
   }
 
-  changeColorOption(colorOption){
+  changeColorOption(colorOption) {
     this.colorOption = colorOption;
     this.offsetTop = (window.innerWidth <= 480) ? 100 : 50;
     if (this.colorOption === 'A') {
       this.bookmark.rgb = this.colorService
                   .autoDetectColor(this.bookmark.id + this.bookmark.ext);
     } else if (this.colorOption === 'C') {
-      this.colorService.showImg("colorWheel", "canvas2", 200, 200);
+      this.colorService.showImg('colorWheel', 'canvas2', 200, 200);
     }
   }
 
-  onPageDetailsReceived(pageDetails)  {
+  onPageDetailsReceived(pageDetails) {
     this.bookmark.name = pageDetails.title;
     this.bookmark.link = pageDetails.url;
   }

@@ -23,7 +23,7 @@ export class BookmarkService {
             this.set(bookmarks);
           });
     } else {
-      let bookmarks = this.storage.get('bookmarks');
+      const bookmarks = this.storage.get('bookmarks');
       this.set(bookmarks);
       return bookmarks;
     }
@@ -45,17 +45,19 @@ export class BookmarkService {
   }
 
   delete(index) {
-    let bookmark = this.list[index];
-    if(bookmark.type == 'folder'){
-      for(var i=0; i < this.list.length; i++){
-        if(this.list[i].parentId === bookmark.id){
+    const bookmark = this.list[index];
+    if (bookmark.type === 'folder') {
+      for (let i = 0; i < this.list.length; i++) {
+        if (this.list[i].parentId === bookmark.id) {
           this.list[i].parentId = bookmark.parentId;
         }
       }
     }
-    if(!bookmark.img.match(/^(img\/)/))
-        this.fileService.deleteFile("img/" + this.list[index].id
-                                           + this.list[index].ext);
+    if (!bookmark.img.match(/^(img\/)/)) {
+      this.fileService.deleteFile('img/' + this.list[index].id
+                                          + this.list[index].ext);
+
+    }
     this.list.splice(index, 1);
     this.set(this.list);
   }

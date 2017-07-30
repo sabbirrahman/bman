@@ -11,8 +11,8 @@ export class BypassPipe implements PipeTransform {
   ) {}
 
   transform(value: any, type: string): any {
-    if (!value) return value;
-    switch(type) {
+    if (!value) { return value; }
+    switch (type) {
       case 'html':
         return this.sanitizer.bypassSecurityTrustHtml(value);
       case 'style':

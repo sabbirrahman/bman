@@ -14,7 +14,7 @@ export class UtilService {
             .toString(36)
             .replace(/[^a-z]+/g, '')
             .substr(0, length);
-    } while(randomStr.length !== length);
+    } while (randomStr.length !== length);
 
     return randomStr;
   }

@@ -5,16 +5,15 @@ import 'rxjs/add/operator/map';
 import { StorageService } from './storage.service';
 
 export interface ConfigInterface {
-	wallpaper : {
-		name : string;
-    link : string;
-    type : string;
-	};
-  editMode : boolean;
-  orderBy  : string;
-  shape    : string;
-};
-
+  wallpaper: {
+    name: string;
+    link: string;
+    type: string;
+  };
+  editMode: boolean;
+  orderBy: string;
+  shape: string;
+}
 
 @Injectable()
 export class ConfigService implements ConfigInterface {
@@ -23,9 +22,9 @@ export class ConfigService implements ConfigInterface {
     link: '',
     type: ''
   };
-  editMode: boolean = false;
-  orderBy: string = '';
-  shape: string = '';
+  editMode = false;
+  orderBy = '';
+  shape = '';
 
   constructor(
     private storage: StorageService,
@@ -40,34 +39,34 @@ export class ConfigService implements ConfigInterface {
             this.set(config);
           });
     } else {
-      let config = this.storage.get('config');
+      const config = this.storage.get('config');
       this.set(config);
       return config;
     }
   }
 
   set(config?) {
-		if (config) {
-			this.wallpaper = {
-				name: config.wallpaper.name,
-				link: config.wallpaper.link,
-				type: config.wallpaper.type
-			};
-			this.editMode = config.editMode;
-			this.orderBy = config.orderBy;
-			this.shape = config.shap;
-		} else {
-			config = {
-				wallpaper: {
-					name: this.wallpaper.name,
-					link: this.wallpaper.link,
-					type: this.wallpaper.type
-				},
-				editMode: this.editMode,
-				orderBy: this.orderBy,
-				shape: this.shape
-			};
-		}
+    if (config) {
+      this.wallpaper = {
+        name: config.wallpaper.name,
+        link: config.wallpaper.link,
+        type: config.wallpaper.type
+      };
+      this.editMode = config.editMode;
+      this.orderBy = config.orderBy;
+      this.shape = config.shap;
+    } else {
+      config = {
+        wallpaper: {
+          name: this.wallpaper.name,
+          link: this.wallpaper.link,
+          type: this.wallpaper.type
+        },
+        editMode: this.editMode,
+        orderBy: this.orderBy,
+        shape: this.shape
+      };
+    }
     this.storage.set('config', config);
   }
 

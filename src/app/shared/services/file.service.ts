@@ -13,9 +13,9 @@ export class FileService {
   constructor() { }
 
   // Error Handeler
-  err(e) { console.log(e.message); };
+  err(e) { console.log(e.message); }
 
-	showCurrentState(folderName) {
+  showCurrentState(folderName) {
 		// webkitRequestFileSystem(this.config.type, this.config.size, function(fs) {
 		// 	fs.root.getDirectory(folderName, {}, function(dirEntry){
 		// 	  	var dirReader = dirEntry.createReader();
@@ -27,75 +27,75 @@ export class FileService {
 		// 	    	}
 		// 	  	}, this.err);
 		// 	}, this.err);
-		// }, this.err);
-	}
+    // }, this.err);
+  }
 
   upload(file, fileName, callback?) {
-		if(file === undefined) return;
-		webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
-	    fs.root.getFile(fileName, { create: true }, (fileEntry) => {
+    if (file === undefined) { return; }
+    webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
+      fs.root.getFile(fileName, { create: true }, (fileEntry) => {
         fileEntry.createWriter((fileWriter) => {
           // fileWriter.onthis.error = this.err;
           fileWriter.write(file);
-          if (callback) callback();
+          if (callback) { callback(); }
         }, this.err);
-	    }, this.err);
-		}, this.err);
-	}
+      }, this.err);
+    }, this.err);
+  }
 
   move(src, des, callback?) {
     webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
       fs.root.getFile(src, {}, (fileEntry) => {
         fs.root.getDirectory(des, {}, (dirEntry) => {
           fileEntry.moveTo(dirEntry);
-          if (callback) callback();
+          if (callback) { callback(); }
         }, this.err);
       }, this.err);
     }, this.err);
   }
 
   getUrl(path, fileName, callback?) {
-		webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
-		    fs.root.getFile(path + fileName, {}, (fileEntry) => {
-          if (callback) callback(fileEntry.toURL());
-		    }, this.err);
-		}, this.err);
-	}
+    webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
+        fs.root.getFile(path + fileName, {}, (fileEntry) => {
+          if (callback) { callback(fileEntry.toURL()); }
+        }, this.err);
+    }, this.err);
+  }
 
-	writeFile() {
-		// webkitRequestFileSystem(this.config.type, this.config.size, function(fs) {
-		//     fs.root.getFile(fileName, { create: true }, function(fileEntry) {
-		//         fileEntry.createWriter(function(fileWriter) {
+  writeFile() {
+    // webkitRequestFileSystem(this.config.type, this.config.size, function(fs) {
+    //     fs.root.getFile(fileName, { create: true }, function(fileEntry) {
+    //         fileEntry.createWriter(function(fileWriter) {
     //
-		//         }, this.err);
-		//     }, this.err);
-		// }, this.err);
-	}
+    //         }, this.err);
+    //     }, this.err);
+    // }, this.err);
+  }
 
   deleteFile(fileName) {
-		// webkitRequestFileSystem(this.config.type, this.config.size, function(fs) {
-		// 	fs.root.getFile(fileName, {create: false}, function(fileEntry) {
-		// 		fileEntry.remove(function() {
-		// 		}, this.err);
-		// 	}, this.err);
-		// }, this.err);
-	}
+    // webkitRequestFileSystem(this.config.type, this.config.size, function(fs) {
+    // 	fs.root.getFile(fileName, {create: false}, function(fileEntry) {
+    // 		fileEntry.remove(function() {
+    // 		}, this.err);
+    // 	}, this.err);
+    // }, this.err);
+  }
 
   createFolder(folderName, callback?) {
-		webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
-		  	fs.root.getDirectory(folderName, {create: true}, (dirEntry) => {
-          if (callback) callback();
-		  	}, this.err);
-		}, this.err);
-	}
+    webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
+        fs.root.getDirectory(folderName, {create: true}, (dirEntry) => {
+          if (callback) { callback(); }
+        }, this.err);
+    }, this.err);
+  }
 
   deleteFolderRecursively(folderName, callback?) {
-		webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
-		  	fs.root.getDirectory(folderName, {}, (dirEntry) => {
-			    dirEntry.removeRecursively(() => {
-            if (callback) callback();
-			  	}, this.err);
-		  	}, this.err);
-		}, this.err);
-	}
+    webkitRequestFileSystem(this.config.type, this.config.size, (fs) => {
+        fs.root.getDirectory(folderName, {}, (dirEntry) => {
+          dirEntry.removeRecursively(() => {
+            if (callback) { callback(); }
+          }, this.err);
+        }, this.err);
+    }, this.err);
+  }
 }

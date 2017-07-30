@@ -29,95 +29,96 @@ export class SettingsComponent {
   ) { }
 
   // Export Bookmarks & Configuration:
-  export(){
-    let zip = new JSZip();
-    zip.file("bookmarks.json", JSON.stringify(this.bookmarkService.get()));
-    zip.file("config.json"   , JSON.stringify(this.config.get()));
-    let img = zip.folder("img");
-    let httpConfig = new Request({
+  export() {
+    const zip = new JSZip();
+    zip.file('bookmarks.json', JSON.stringify(this.bookmarkService.get()));
+    zip.file('config.json'   , JSON.stringify(this.config.get()));
+    const img = zip.folder('img');
+    const httpConfig = new Request({
       responseType: ResponseContentType.ArrayBuffer,
       method: RequestMethod.Get,
-      url: ""
+      url: ''
     });
 
-    for (let i=0; i < this.bookmarkService.list.length; i++) {
+    for (let i = 0; i < this.bookmarkService.list.length; i++) {
       httpConfig.url = this.bookmarkService.list[i].img;
-      if (httpConfig.url.match(/^(.\/assets\/img\/)/)) continue;
+      if (httpConfig.url.match(/^(.\/assets\/img\/)/)) { continue; }
       this.http.request(httpConfig)
           .map(res => res.arrayBuffer())
           .subscribe((data) => {
-            let fileName = this.bookmarkService.list[i].id + this.bookmarkService.list[i].ext;
+            const fileName = this.bookmarkService.list[i].id + this.bookmarkService.list[i].ext;
             img.file(fileName, data, {binary: true});
           });
     }
-    
+
     httpConfig.url = this.config.wallpaper.link;
-    if (!httpConfig.url.match(/^(.\/assets\/img\/)/)){
+    if (!httpConfig.url.match(/^(.\/assets\/img\/)/)) {
       this.http.request(httpConfig)
           .map(res => res.arrayBuffer())
           .subscribe((data) => {
-            let fileName = this.config.wallpaper.name + '.jpg';
+            const fileName = this.config.wallpaper.name + '.jpg';
             img.file(fileName, data, {binary: true});
           });
     }
-    
-    let save = function(){
-      let content = zip.generate({type:"blob"});
-      saveAs(content, "b-man.backup");
-    }
-    
+
+    const save = () => {
+      const content = zip.generate({type: 'blob'});
+      saveAs(content, 'b-man.backup');
+    };
+
     setTimeout(save, 1000);
   }
 
   // Import Bookmarks & Configuration:
-  import(backup){
-    if (!backup.files || !backup.files[0]) return;
-    if (!backup.files[0].name.match(/(backup)$/)){
-      this.errMsg = "Invalid Backup File!";
+  import(backup) {
+    if (!backup.files || !backup.files[0]) { return; }
+    if (!backup.files[0].name.match(/(backup)$/)) {
+      this.errMsg = 'Invalid Backup File!';
       return;
-    };
-    let fr = new FileReader();
-    
+    }
+    const fr = new FileReader();
+
     fr.onloadend = () => {
-      let zip = new JSZip(fr.result);
-      
+      const zip = new JSZip(fr.result);
+
       // Configs
-      let newConf = JSON.parse(zip.file('config.json').asText());
-      if (!newConf.wallpaper.link.match(/^(.\/assets\/img\/)/)){
-        if (!this.config.wallpaper.link.match(/^(\/assets\/img\/)/))
-            this.fileService.deleteFile('img/' + this.config.wallpaper.name + '.jpg');
-        let fileName = newConf.wallpaper.name + '.jpg';
-        let blob = new Blob([zip.file('img/' + fileName).asArrayBuffer()]);
+      const newConf = JSON.parse(zip.file('config.json').asText());
+      if (!newConf.wallpaper.link.match(/^(.\/assets\/img\/)/)) {
+        if (!this.config.wallpaper.link.match(/^(\/assets\/img\/)/)) {
+          this.fileService.deleteFile('img/' + this.config.wallpaper.name + '.jpg');
+        }
+        const fileName = newConf.wallpaper.name + '.jpg';
+        const blob = new Blob([zip.file('img/' + fileName).asArrayBuffer()]);
         this.fileService.upload(blob, 'img/' + fileName);
       }
       this.config.set(newConf);
-      
+
       // Bookmarks
-      let newBookmarks = JSON.parse(zip.file('bookmarks.json').asText());
-      for (let i=0; i < newBookmarks.length; i++){
-          let result = this.bookmarkService.list.filter(function(obj) {
-              return obj.link == newBookmarks[i].link;
-          });
-          if (result.length < 1){
-            let bookmark = newBookmarks[i];
-            this.bookmarkService.list.push(bookmark);
-            if (!bookmark.img.match(/^(.\/assets\/img\/)/)) {
-              let fileName = bookmark.id + bookmark.ext;
-              let blob = new Blob([zip.file('img/' + fileName).asArrayBuffer()]);
-              this.fileService.upload(blob, 'img/' + fileName);
-            }
+      const newBookmarks = JSON.parse(zip.file('bookmarks.json').asText());
+      for (let i = 0; i < newBookmarks.length; i++) {
+        const result = this.bookmarkService.list.filter(function(obj) {
+          return obj.link === newBookmarks[i].link;
+        });
+        if (result.length < 1) {
+          const bookmark = newBookmarks[i];
+          this.bookmarkService.list.push(bookmark);
+          if (!bookmark.img.match(/^(.\/assets\/img\/)/)) {
+            const fileName = bookmark.id + bookmark.ext;
+            const blob = new Blob([zip.file('img/' + fileName).asArrayBuffer()]);
+            this.fileService.upload(blob, 'img/' + fileName);
           }
+        }
       }
       this.bookmarkService.set(this.bookmarkService.list);
       this.router.navigate(['/folder']);
-    }
-    
+    };
+
     fr.readAsArrayBuffer(backup.files[0]);
   }
 
   // Import Bookmarks from Chrome
-  importFromChrome(){
-    let bookmark = {
+  importFromChrome() {
+    const bookmark = {
       id: '',
       parentId: '',
       date: new Date(),
@@ -129,43 +130,43 @@ export class SettingsComponent {
       ext : '.png',
       a: 0.75
     };
-    let rgb = ['119, 119, 119', '175, 200, 238', '213, 244, 226'];
-    let str = "[";
+    const rgb = ['119, 119, 119', '175, 200, 238', '213, 244, 226'];
+    let str = '[';
     let counterB = 0;
-    let counterF = 0
-    let getBookmarks = (bookmarks, parentId) => {
-      for(let i=0; i < bookmarks.length; i++){
+    let counterF = 0;
+    const getBookmarks = (bookmarks, parentId) => {
+      for (let i = 0; i < bookmarks.length; i++) {
         bookmark.id       = this.util.generateRandomString(8);
         bookmark.name     = bookmarks[i].title;
         bookmark.parentId = parentId;
         bookmark.date  = new Date();
-        if(bookmarks[i].url){
+        if (bookmarks[i].url) {
           bookmark.link     = bookmarks[i].url;
           bookmark.rgb      = rgb[counterB];
           bookmark.img      = './assets/img/asdjklha' + counterB + '.png';
-          bookmark.type     = "bookmark";
-          str += JSON.stringify(bookmark) + ",";
-          counterB = (counterB == 2)? 0 : ++counterB;
-        } else if(bookmarks[i].children){
+          bookmark.type     = 'bookmark';
+          str += JSON.stringify(bookmark) + ',';
+          counterB = (counterB === 2) ? 0 : ++counterB;
+        } else if (bookmarks[i].children) {
           bookmark.link     = '#/folder/' + bookmark.id;
           bookmark.rgb      = rgb[counterF];
           bookmark.img      = './assets/img/alsdhlas' + counterF + '.png';
-          bookmark.type     = "folder";
-          str += JSON.stringify(bookmark) + ",";
-          counterF = (counterF == 2)? 0 : ++counterF;
+          bookmark.type     = 'folder';
+          str += JSON.stringify(bookmark) + ',';
+          counterF = (counterF === 2) ? 0 : ++counterF;
           getBookmarks(bookmarks[i].children, bookmark.id || '');
         }
       }
-    }
+    };
     chrome.bookmarks.getTree((result) => {
       getBookmarks(result[0].children, '');
-      str = str.substr(0, str.length-1) + "]";
-      let newBookmarks = JSON.parse(str);
-      for(let i=0; i<newBookmarks.length; i++) {
-        let result = this.bookmarkService.list.filter((obj) => {
-          return obj.link == newBookmarks[i].link || (obj.type == 'folder' && obj.name == newBookmarks[i].name);
+      str = str.substr(0, str.length - 1) + ']';
+      const newBookmarks = JSON.parse(str);
+      for (let i = 0; i < newBookmarks.length; i++) {
+        const res = this.bookmarkService.list.filter((obj) => {
+          return obj.link === newBookmarks[i].link || (obj.type === 'folder' && obj.name === newBookmarks[i].name);
         });
-        if (result.length < 1) this.bookmarkService.list.push(newBookmarks[i]);
+        if (res.length < 1) { this.bookmarkService.list.push(newBookmarks[i]); }
       }
       this.bookmarkService.set(this.bookmarkService.list);
       this.router.navigate(['/folder']);
@@ -173,9 +174,9 @@ export class SettingsComponent {
   }
 
   // Wallpaper Upload:
-  changeWallpaper(wall){
-      if(!wall.files || !wall.files[0]) return;
-      let f = wall.files[0];
+  changeWallpaper(wall) {
+      if (!wall.files || !wall.files[0]) { return; }
+      const f = wall.files[0];
       // if(!ValidatorService.type(f, ['image/jpeg'])){
       //     this.errMsg = "Only jpg Images Please!";
       //     return;
@@ -184,15 +185,16 @@ export class SettingsComponent {
       //     this.errMsg = "Too Large! Maximum 1 MB (1024 KB).";
       //     return;
       // }
-      if(!this.config.wallpaper.link.match(/^(img\/)/))
-          this.fileService.deleteFile("img/" + this.config.wallpaper.name + '.jpg');
-      
+      if (!this.config.wallpaper.link.match(/^(img\/)/)) {
+        this.fileService.deleteFile('img/' + this.config.wallpaper.name + '.jpg');
+      }
+
       this.config.wallpaper.name = this.util.generateRandomString(8);
-      let fileName = this.config.wallpaper.name + '.jpg';
-      
+      const fileName = this.config.wallpaper.name + '.jpg';
+
       this.fileService.upload(f, fileName, () => {
-        this.fileService.move(fileName, "img/", () => {
-          this.fileService.getUrl("img/", fileName, (url) => {
+        this.fileService.move(fileName, 'img/', () => {
+          this.fileService.getUrl('img/', fileName, (url) => {
             this.config.wallpaper.link = url;
             this.config.set();
           });
@@ -201,7 +203,7 @@ export class SettingsComponent {
   }
 
   // Pattern as Wallpaper
-  setPatterAsWallpaper(index){
+  setPatterAsWallpaper(index) {
     this.config.wallpaper.name = 'xiawhraw' + index;
     this.config.wallpaper.link = 'assets/img/xiawhraw' + index + '.png';
     this.config.wallpaper.type = 'repeat';
@@ -209,14 +211,14 @@ export class SettingsComponent {
   }
 
   // Set Wallpaper Type
-  setWallpaperType(type){
+  setWallpaperType(type) {
     this.config.wallpaper.type = type;
     // console.log(this.config.wallpaper);
     this.config.set();
   }
 
   // Order By:
-  setOrderBy(orderBy){
+  setOrderBy(orderBy) {
     this.config.orderBy = orderBy;
     // this.config.set();
     // if(this.config.orderBy != 'custom' && this.config.orderBy != 'lastVisited') {
@@ -226,22 +228,23 @@ export class SettingsComponent {
   }
 
   // Shape Shifter:
-  changeShape(shape){
+  changeShape(shape) {
     this.config.shape = shape;
     this.config.set();
     this.router.navigate(['/folder']);
   }
 
   // Restore All Default Settings
-  restoreDefaults(){
-    if(!this.config.wallpaper.link.match(/^(img\/)/))
-        this.fileService.deleteFile("img/" + this.config.wallpaper.name + '.jpg');
+  restoreDefaults() {
+    if (!this.config.wallpaper.link.match(/^(img\/)/)) {
+      this.fileService.deleteFile('img/' + this.config.wallpaper.name + '.jpg');
+    }
     this.config.editMode = false;
-    this.config.orderBy = "custom";
-    this.config.shape = "rectangle";
-    this.config.wallpaper.name = "xiawhraw";
-    this.config.wallpaper.link = "assets/img/xiawhraw.jpg";
-    this.config.wallpaper.type = "tiled";
+    this.config.orderBy = 'custom';
+    this.config.shape = 'rectangle';
+    this.config.wallpaper.name = 'xiawhraw';
+    this.config.wallpaper.link = 'assets/img/xiawhraw.jpg';
+    this.config.wallpaper.type = 'tiled';
     this.config.set();
     this.router.navigate(['/folder']);
   }

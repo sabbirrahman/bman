@@ -31,6 +31,6 @@ export class BookmarkModule {
       providers: [
         BookmarkService
       ]
-    }
+    };
   }
 }
