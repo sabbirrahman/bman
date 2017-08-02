@@ -242,9 +242,9 @@ export class SettingsComponent {
     this.config.editMode = false;
     this.config.orderBy = 'custom';
     this.config.shape = 'rectangle';
-    this.config.wallpaper.name = 'xiawhraw';
-    this.config.wallpaper.link = 'assets/img/xiawhraw.jpg';
-    this.config.wallpaper.type = 'tiled';
+    this.config.wallpaper.name = 'wallpaper';
+    this.config.wallpaper.link = 'assets/img/wallpaper.jpg';
+    this.config.wallpaper.type = 'stretch';
     this.config.set();
     this.router.navigate(['/folder']);
   }

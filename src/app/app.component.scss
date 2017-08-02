@@ -1,4 +1,4 @@
-@import "../assets/css/global";
+@import "../assets/styles/global";
 .bg {
   position: fixed;
   height: 100vh;
@@ -54,7 +54,7 @@ nav {
 					font-size: 16px;
 					width: 180px;
 				}
-				.fa-search {
+				.icon-search {
 					background: lighten($blue, 15%);
 					padding: 3px 5px 3px 5px;
 					position: absolute;

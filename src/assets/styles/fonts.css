@@ -1,0 +1,52 @@
+@font-face {
+  font-family: 'bman-icon';
+  src:
+    url('/assets/fonts/bman-icon.ttf?gry0yn') format('truetype'),
+    url('/assets/fonts/bman-icon.woff?gry0yn') format('woff'),
+    url('/assets/fonts/bman-icon.svg?gry0yn#bman-icon') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+.icons {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: 'bman-icon' !important;
+  speak: none;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-add:before {
+  content: "\e937";
+}
+.icon-cross:before {
+  content: "\e938";
+}
+.icon-delete:before {
+  content: "\e939";
+}
+.icon-filter:before {
+  content: "\e93a";
+}
+.icon-more-horz:before {
+  content: "\e93b";
+}
+.icon-more-vert:before {
+  content: "\e93c";
+}
+.icon-search:before {
+  content: "\e93d";
+}
+.icon-settings:before {
+  content: "\e93e";
+}
+.icon-sort:before {
+  content: "\e93f";
+}

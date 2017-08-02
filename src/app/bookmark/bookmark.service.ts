@@ -1,6 +1,5 @@
+// Imports from @angular
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 // Services
 import { StorageService } from '../shared/services/storage.service';
 import { FileService } from '../shared/services/file.service';
@@ -11,17 +10,14 @@ export class BookmarkService {
 
   constructor(
     private fileService: FileService,
-    private storage: StorageService,
-    private http: Http
+    private storage: StorageService
   ) { }
 
   get() {
     if (!this.storage.isSet('bookmarks')) {
-      this.http.get('./assets/js/bookmarks.json')
-          .map(res => res.json())
-          .subscribe((bookmarks) => {
-            this.set(bookmarks);
-          });
+      fetch('./assets/js/bookmarks.json')
+        .then(res => res.json())
+        .then(bookmarks => this.set(bookmarks));
     } else {
       const bookmarks = this.storage.get('bookmarks');
       this.set(bookmarks);

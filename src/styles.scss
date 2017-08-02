@@ -2,12 +2,12 @@
 
 @import "../node_modules/normalize.css/normalize.css";
 @import "../node_modules/animate.css/animate.min.css";
-@import "../node_modules/font-awesome/css/font-awesome.min.css";
 
-@import './assets/css/defaults.css';
-@import './assets/css/grid.css';
-@import "./assets/css/global";
-@import './assets/css/form';
+@import './assets/styles/fonts.css';
+@import './assets/styles/defaults.css';
+@import './assets/styles/grid.css';
+@import "./assets/styles/global";
+@import './assets/styles/form';
 
 // Misc Style
 @font-face {

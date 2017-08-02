@@ -16,6 +16,7 @@ declare let chrome: any;
   styleUrls: ['./bookmark-form.component.scss']
 })
 export class BookmarkFormComponent implements OnInit {
+  createFolder = false;
   editMode = false;
   folders: Array<any> = [];
   errMsg = '';

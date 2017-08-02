@@ -11,19 +11,19 @@
     <div class="searchbox" title="Search">
       <form>
         <input type="search" ng-model="search.name">
-        <i class="fa fa-search"></i>
+        <i class="icons icon-search"></i>
       </form>
     </div>
     <div class="buttons" ng-controller="Buttons">
       <a [routerLink]="['add']">
-        <i class="fa fa-plus-square-o" title="Add Bookmark"></i>
+        <i class="icons icon-add" title="Add Bookmark"></i>
       </a>
-      <i class="fa fa-pencil-square-o" [class.activated]="config.editMode"
+      <i class="icons icon-mote-vert" [class.activated]="config.editMode"
         [title]="config.editMode ? 'Deactivate' : 'Activate' + 'Edit Mode'"
         (click)="toggleEditMode()"
       ></i>
       <a [routerLink]="['settings']">
-        <i class="fa fa-cog" title="Settings"></i>
+        <i class="icons icon-settings" title="Settings"></i>
       </a>
     </div>
   </div>

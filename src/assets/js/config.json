@@ -1,8 +1,8 @@
 {
 	"wallpaper" : {
-		"name" : "xiawhraw",
-	    "link" : "./assets/img/xiawhraw.jpg",
-	    "type" : "repeat"
+		"name" : "wallpaper",
+	    "link" : "./assets/img/wallpaper.jpg",
+	    "type" : "stretch"
 	},
     "editMode" : false,
     "orderBy"  : "custom",
