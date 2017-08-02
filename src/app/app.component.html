@@ -1,34 +1,40 @@
-<div class="bg" [ngClass]="config.wallpaper.type"
-  [style.backgroundImage]="'url(' + config.wallpaper.link + ')' | bypass:'style'"
-></div>
+<main [class.blur]="isOverlayVisible === 'flex'">
+   <div class="bg" [ngClass]="config.wallpaper.type"
+    [style.backgroundImage]="'url(' + config.wallpaper.link + ')' | bypass:'style'"
+  ></div>
 
-<nav>
-  <div class="logo">
-    <a [routerLink]="['/']">B-Man</a>
-  </div>
-
-  <div class="menu">
-    <div class="searchbox" title="Search">
-      <form>
-        <input type="search" ng-model="search.name">
-        <i class="icons icon-search"></i>
-      </form>
+  <nav>
+    <div class="logo">
+      <a [routerLink]="['/']">B-Man</a>
     </div>
-    <div class="buttons" ng-controller="Buttons">
-      <a [routerLink]="['add']">
-        <i class="icons icon-add" title="Add Bookmark"></i>
-      </a>
-      <i class="icons icon-mote-vert" [class.activated]="config.editMode"
-        [title]="config.editMode ? 'Deactivate' : 'Activate' + 'Edit Mode'"
-        (click)="toggleEditMode()"
-      ></i>
-      <a [routerLink]="['settings']">
-        <i class="icons icon-settings" title="Settings"></i>
-      </a>
-    </div>
-  </div>
-</nav>
 
-<main>
+    <div class="menu">
+      <div class="searchbox" title="Search">
+        <form>
+          <input type="search">
+          <i class="icons icon-search"></i>
+        </form>
+      </div>
+      <div class="buttons">
+        <a [routerLink]="['./', { outlets: { overlay: ['settings'] } } ]">
+          <i class="icons icon-settings" title="Settings"></i>
+        </a>
+        <i class="icons icon-more-vert" [class.activated]="config.editMode"
+          [title]="config.editMode ? 'Deactivate' : 'Activate' + 'Edit Mode'"
+          (click)="toggleEditMode()"
+        ></i>
+        <!-- <i class="icons icon-sort" [class.activated]="config.editMode"
+          [title]="config.editMode ? 'Deactivate' : 'Activate' + 'Edit Mode'"
+          (click)="toggleEditMode()"
+        ></i> -->
+      </div>
+    </div>
+  </nav>
+
   <router-outlet></router-outlet>
 </main>
+
+<div class="overlay" (click)="closeOverlay($event)"
+  [style.display]="isOverlayVisible">
+  <router-outlet name="overlay"></router-outlet>
+</div>

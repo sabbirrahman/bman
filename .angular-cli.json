@@ -21,7 +21,6 @@
       "prefix": "",
       "styles": ["styles.scss"],
       "scripts": [
-        "../node_modules/file-saver/FileSaver.min.js",
         "../node_modules/jszip/dist/jszip.min.js",
         "./assets/js/color-thief.min.js"
       ],

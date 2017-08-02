@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 // Services
 import { StorageService } from './storage.service';
@@ -27,15 +26,14 @@ export class ConfigService implements ConfigInterface {
   shape = '';
 
   constructor(
-    private storage: StorageService,
-    private http: Http
+    private storage: StorageService
   ) { }
 
   get() {
     if (!this.storage.isSet('config')) {
-      this.http.get('./assets/js/config.json')
-          .map(res => res.json())
-          .subscribe((config) => {
+      fetch('./assets/js/config.json')
+          .then(res => res.json())
+          .then((config) => {
             this.set(config);
           });
     } else {

@@ -95,6 +95,16 @@
 // 	.bookmark;
 // }
 
+.mdl-button--fab {
+  background: rgb(244, 66, 53);
+  line-height: 54px;
+  position: fixed;
+  bottom: 16px;
+  right: 16px;
+  .icons { line-height: inherit; }
+  &:hover { background: rgb(244, 66, 53); }
+}
+
 @media only screen and (max-width:480px){
 	.bookmark img { height: 75px; width: 75px; }
 	.columns.two.circle { width: 95px; .circle { width: 95px; } }

@@ -1,13 +1,16 @@
 @import './global';
 // Form Styles
 .formcontainer {
+  box-shadow: 0 20px 20px 0px rgba(47, 47, 92, 0.32);
 	border: 1px solid rgba(255, 255, 255, .1);
 	background: $transparent_black;
 	box-shadow: $shadow;
-	margin: 5px auto;
+  max-height: 90vh;
+  overflow-y: auto;
 	color: $white;
 	padding: 5px;
-	width: 320px;
+  width: 320px;
+  margin: 0px;
 }
 .form {
 	margin: 0px auto;

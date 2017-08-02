@@ -30,7 +30,7 @@
 		<div class="bookmark" [ngClass]="shapeClass"
 		     [style.background]="bookmark.rgb | color:bookmark.a">
 
-			<a class="link" [href]="bookmark.link" (click)="gotoLink(i)">
+			<a mdl class="link mdl-js-button mdl-js-ripple-effect" [href]="bookmark.link" (click)="gotoLink(i)">
 				<img [attr.id]="bookmark.id" [attr.alt]="bookmark.name"
 					   [src]="bookmark.img | bypass" crossOrigin="anonymous">
 				<span class="name" *ngIf="bookmark.name">
@@ -39,8 +39,8 @@
 			</a>
 
 			<div class="bmoptions" *ngIf="config.editMode">
-				<a [routerLink]="['/edit', i]">
-					<i class="ed icons icon-mote-horz" title="Edit"></i>
+				<a [routerLink]="['./', { outlets: { overlay: ['edit', i] } } ]">
+					<i class="ed icons icon-more-horz" title="Edit"></i>
 				</a>
 				<a (click)="bookmarkService.delete(i)">
 					<i class="ed icons icon-delete" title="Delete"></i>
@@ -50,3 +50,7 @@
     </div>
 	</section>
 </div>
+
+<a mdl [routerLink]="['./', { outlets: { overlay: ['add'] } } ]"
+  class="mdl-button mdl-js-button mdl-button--fab mdl-js-ripple-effect mdl-button--colored"
+><i class="icons icon-add"></i></a>

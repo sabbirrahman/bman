@@ -1,7 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { HttpModule } from '@angular/http';
 import { NgModule } from '@angular/core';
 
 import { BookmarkModule } from './bookmark/bookmark.module';
@@ -22,8 +21,7 @@ import { ROUTES } from './app.routes';
     BookmarkModule.forRoot(),
     SharedModule.forRoot(),
     BrowserModule,
-    FormsModule,
-    HttpModule
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

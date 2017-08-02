@@ -8,6 +8,6 @@ export const BOOKMARK_ROUTES: Routes = [
   { path: ''                , component: BookmarkListComponent },
   { path: 'folder'          , component: BookmarkListComponent },
   { path: 'folder/:folderId', component: BookmarkListComponent },
-  { path: 'edit/:index',      component: BookmarkFormComponent },
-  { path: 'add',              component: BookmarkFormComponent }
+  { path: 'edit/:index',      component: BookmarkFormComponent, outlet: 'overlay' },
+  { path: 'add',              component: BookmarkFormComponent, outlet: 'overlay' }
 ];

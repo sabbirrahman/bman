@@ -20,19 +20,17 @@
 nav {
 	background: $transparent_black;
   justify-content: space-between;
-  align-items: center;
-  display: flex;
 	box-shadow: $shadow;
+  align-items: center;
 	padding: 0px 20px;
 	position: fixed;
-	height: 50px;
+  display: flex;
+	height: 64px;
   width: 100vw;
 	z-index: 1;
 	top: 0px;
 	.logo {
-		line-height: 50px;
 		color: $white;
-		height: 50px;
 	}
 	.menu {
     justify-content: space-between;
@@ -85,7 +83,34 @@ nav {
 // End of Navigation Style
 
 // Main Section Style
-main { margin-top: 50px; }
+main {
+  padding-top: 64px;
+  &.blur {
+    filter: blur(40px);
+    .bg {
+      margin-left: -5vw;
+      margin-top: -5vh;
+      height: 110vh;
+      width: 110vw;
+    }
+  }
+}
+
+// Overlay
+.overlay {
+  background: rgba(0, 0, 0, 0.5);
+  justify-content: center;
+  align-items: center;
+  overflow-y: auto;
+  position: fixed;
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  left: 0;
+  top: 0;
+  z-index: 1000;
+}
+
 
 @media only screen and (max-width:480px){
 	nav {

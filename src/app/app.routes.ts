@@ -4,5 +4,5 @@ import { Routes } from '@angular/router';
 import { SettingsComponent } from './settings/settings.component';
 
 export const ROUTES: Routes = [
-  { path: 'settings',   component: SettingsComponent }
+  { path: 'settings',   component: SettingsComponent, outlet: 'overlay' }
 ];

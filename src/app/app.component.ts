@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 // Services
 import { BookmarkService } from './bookmark/bookmark.service';
 import { StorageService } from './shared/services/storage.service';
@@ -15,7 +16,8 @@ export class AppComponent implements OnInit {
     private bookmark: BookmarkService,
     private fileService: FileService,
     private storage: StorageService,
-    public config: ConfigService
+    public config: ConfigService,
+    private router: Router
   ) {}
 
   ngOnInit() {
@@ -56,5 +58,15 @@ export class AppComponent implements OnInit {
   toggleEditMode() {
     this.config.editMode = !this.config.editMode;
     this.config.set();
+  }
+
+  get isOverlayVisible (): string {
+    return (/\(overlay:/).test(this.router.url) ? 'flex' : 'none';
+  }
+
+  closeOverlay(ev) {
+    if (ev.target.classList[0] === 'overlay') {
+      this.router.navigate(['/']);
+    }
   }
 }

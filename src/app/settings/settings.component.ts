@@ -1,4 +1,3 @@
-import { Http, Request, RequestMethod, ResponseContentType } from '@angular/http';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import 'rxjs/add/operator/map';
@@ -9,6 +8,7 @@ import { StorageService } from '../shared/services/storage.service';
 import { ConfigService } from '../shared/services/config.service';
 import { FileService } from '../shared/services/file.service';
 import { UtilService } from '../shared/services/util.service';
+import * as FileSaver from 'file-saver';
 
 @Component({
   selector: 'app-settings',
@@ -24,8 +24,7 @@ export class SettingsComponent {
     private storage: StorageService,
     private config: ConfigService,
     private util: UtilService,
-    private router: Router,
-    private http: Http
+    private router: Router
   ) { }
 
   // Export Bookmarks & Configuration:
@@ -34,39 +33,35 @@ export class SettingsComponent {
     zip.file('bookmarks.json', JSON.stringify(this.bookmarkService.get()));
     zip.file('config.json'   , JSON.stringify(this.config.get()));
     const img = zip.folder('img');
-    const httpConfig = new Request({
-      responseType: ResponseContentType.ArrayBuffer,
-      method: RequestMethod.Get,
-      url: ''
-    });
+    const httpConfig = { url : '' };
 
     for (let i = 0; i < this.bookmarkService.list.length; i++) {
-      httpConfig.url = this.bookmarkService.list[i].img;
+      httpConfig.url = this.bookmarkService.list[i].img.substr(1);
       if (httpConfig.url.match(/^(.\/assets\/img\/)/)) { continue; }
-      this.http.request(httpConfig)
-          .map(res => res.arrayBuffer())
-          .subscribe((data) => {
+      fetch(httpConfig.url)
+          .then(res => res.arrayBuffer())
+          .then((data) => {
             const fileName = this.bookmarkService.list[i].id + this.bookmarkService.list[i].ext;
             img.file(fileName, data, {binary: true});
           });
     }
 
-    httpConfig.url = this.config.wallpaper.link;
+    httpConfig.url = this.config.wallpaper.link.substr(1);
     if (!httpConfig.url.match(/^(.\/assets\/img\/)/)) {
-      this.http.request(httpConfig)
-          .map(res => res.arrayBuffer())
-          .subscribe((data) => {
+      fetch(httpConfig.url)
+          .then(res => res.arrayBuffer())
+          .then((data) => {
             const fileName = this.config.wallpaper.name + '.jpg';
-            img.file(fileName, data, {binary: true});
+            img.file(fileName, data, { binary: true });
           });
     }
 
     const save = () => {
-      const content = zip.generate({type: 'blob'});
-      saveAs(content, 'b-man.backup');
+      const content = zip.generate({ type: 'blob' });
+      FileSaver.saveAs(content, 'b-man.backup');
     };
 
-    setTimeout(save, 1000);
+    setTimeout(save, 2000);
   }
 
   // Import Bookmarks & Configuration:
